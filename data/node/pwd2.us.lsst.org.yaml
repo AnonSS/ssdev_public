@@ -1,11 +1,15 @@
+# Run puppet agent about 3 times eo ensure all config has been applied.
 ---
 classes:
+  - profile::tomcat
   - profile::base_linux
-  - profile::puppet_master
+  - profile::java
+  - profile::pwm
+profile::base_linux::postfix: true
 network::interfaces_hash:
   eth0:
     type: Ethernet
-    ipaddress: 140.252.32.182
+    ipaddress: 140.252.32.185
     netmask: 255.255.254.0
     gateway: 140.252.32.1
     dns1: 140.252.32.125

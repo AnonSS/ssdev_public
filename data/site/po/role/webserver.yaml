@@ -1,0 +1,84 @@
+---
+# /etc/nginx/sites-available/ls.st.conf
+nginx::nginx_servers:
+  'ls.st':
+    # use_default_location: false
+    www_root: '/etc/nginx/YOURLS'
+    # include_files: '/etc/nginx/sites-available/ls.st.conf'
+    index_files: ['index.html', 'index.php', 'index.htm']
+    ssl: true
+    ssl_cert: '/etc/pki/tls/certs/ls.st.crt'
+    ssl_key: '/etc/pki/tls/certs/ls.st.key'
+  'test2.us.lsst.org':
+    www_root: '/etc/nginx/YOURLS2'
+# nginx::nginx_upstreams:
+#   'yourls':
+#     ensure: present
+#     members:
+#       'test1.us.lsst.org:80':
+#         server: 'test1.us.lsst.org'
+#         port: 80
+# php::manage_repos: true
+# php::fpm: true
+# php::fpm_user: 'nginx'
+# php::fpm_group: 'nginx'
+# php::dev: true
+# php::composer: true
+# php::pear: true
+# php::phpunit: false
+# php::settings:
+#   'PHP/max_execution_time': '90'
+#   'PHP/max_input_time': '300'
+#   'PHP/memory_limit': '64M'
+#   'PHP/post_max_size': '32M'
+#   'PHP/upload_max_filesize': '32M'
+#   'Date/date.timezone': 'Europe/Berlin'
+# php::extensions:
+#   bcmath: {}
+#   xmlrpc: {}
+#   imagick:
+#     provider: pecl
+#   memcached:
+#     provider: pecl
+#     header_packages:
+#       - libmemcached-dev
+#   apc:
+#     provider: pecl
+#     settings:
+#       'apc/stat': 1
+#       'apc/stat_ctime': 1
+#     sapi: 'fpm'
+# php::fpm::pools:
+#   www2:
+#     listen: '127.0.0.1'
+# Centos 7.3
+# yumrepo:
+#   'repo.mysql.com':
+#     baseurl: "http://http://repo.mysql.com/yum/mysql-5.6-community/"
+#     descr: 'repo.mysql.com'
+#     enabled: 1
+#     gpgcheck: true
+#     gpgkey: 'http://repo.mysql.com/RPM-GPG-KEY-mysql'
+
+# mysql::client::package_name: "mysql-community-client" # required for proper MySQL installation
+# mysql::server::package_name: "mysql-community-server" # required for proper MySQL installation
+# mysql::server::package_ensure: 'installed' # do not specify version here, unfortunately yum fails with error that package is already installed
+# mysql::server::root_password: "change_me_i_am_insecure"
+# mysql::server::manage_config_file: true
+# mysql::server::service_name: 'mysqld' # required for puppet module
+# mysql::server::override_options:
+#   'mysqld':
+#     'bind-address': '127.0.0.1'
+#     'log-error': '/var/log/mysqld.log' # required for proper MySQL installation
+#   'mysqld_safe':
+#     'log-error': '/var/log/mysqld.log'  # required for proper MySQL installation
+
+# create database + account with access, passwords are not encrypted
+# mysql::server::db:
+#   "dev2":
+#     user: "dev2"
+#     password: "devpass"
+#     host: "127.0.0.1"
+#     grant:
+#       - "ALL"
+   

@@ -1,11 +1,15 @@
+# Webserver node
 ---
 classes:
   - profile::base_linux
-  - profile::puppet_master
+  # - profile::drupal
+  - profile::webserver
+  # - profile::mysql
+selinux::mode: disabled
 network::interfaces_hash:
   eth0:
     type: Ethernet
-    ipaddress: 140.252.32.182
+    ipaddress: 140.252.32.184
     netmask: 255.255.254.0
     gateway: 140.252.32.1
     dns1: 140.252.32.125
