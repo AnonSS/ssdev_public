@@ -3,13 +3,19 @@ class profile::base_linux (
   Boolean $awscli   = false,
   Boolean $postfix  = false,
   Boolean $graylog  = false,
+  Boolean $nsswitch = true,
+  Boolean $ntp      = false,
 ) {
-  include network
+  include network+
+  # include archive
   include firewalld
   include ssh
   include accounts
   include cron
   include ::collectd
+  include puppet_agent
+
+  # include nsswitch
   if $postfix {
   include postfix
   }
@@ -45,22 +51,44 @@ class profile::base_linux (
   #   value  => 'mail.lsst.org',
   #   root_mail_recipient => 'shahram@lsst.org',
   # }
-  class { 'ntp':
-    servers => [ '140.252.1.140', '140.252.1.141', '0.pool.ntp.arizona.edu' ],
-  }
+  # if $ntp {
+    class { 'chrony':
+      servers => [ '140.252.1.140', '140.252.1.141', '0.pool.ntp.arizona.edu' ],
+    }
+  # }
   class { 'timezone':
       timezone => 'UTC',
   }
   Package { [ 'git', 'tree', 'tcpdump', 'telnet', 'lvm2', 'gcc', 'xinetd',
-  'bash-completion', 'sudo', 'screen', 'vim', 'openssl', 'openssl-devel',
+  'bash-completion', 'sudo', 'vim', 'openssl', 'openssl-devel',
   'acpid', 'wget', 'nmap', 'iputils', 'bind-utils', 'traceroute' ]:
   ensure => installed,
   }
-    # install awscli tool
+# install awscli tool
+# class { 'awscli': }
 if $awscli {
-  Package { [ 'awscli' ]:
-  ensure => installed,
-  }
+    Package { [ 'awscli' ]:
+      ensure => installed,
+    }
+  # archive { '/tmp/awscli-bundle.zip':
+  #   ensure   => present,
+  #   source   => 'https://s3.amazonaws.com/aws-cli/awscli-bundle.zip',
+  #   provider => 'wget',
+  #   cleanup  => false,
+  # }
+  # archive { '/tmp/awscli-bundle.zip':
+  #   path         => '/tmp',
+  #   source       => 'https://s3.amazonaws.com/aws-cli/awscli-bundle.zip',
+  #   extract      => true,
+  #   extract_path => '/usr/local/aws',
+  #   creates      => '/usr/local/bin',
+  #   cleanup      => true,
+  # # require      => File['wso2_appdir'],
+  # }
+  # file { '/opt/tomcat/webapps/pwm.war':
+  #   ensure => present,
+  #   source => '/tmp/pwm-1.9.2.war',
+  # }
   $awscreds = lookup('awscreds')
     file {
       '/root/.aws':
@@ -84,11 +112,16 @@ if $awscli {
     ensure  => file,
     content => $host,
   }
-  $nsswitch = lookup('nsswitch')
-  file { '/etc/nsswitch.conf' :
-    ensure  => file,
-    content => $nsswitch,
+  if $nsswitch {
+    class { 'nsswitch':
+    hosts  => ['dns myhostname','files'],
+    }
   }
+  # $nsswitch = lookup('nsswitch')
+  # file { '/etc/nsswitch.conf' :
+  #   ensure  => file,
+  #   content => $nsswitch,
+  # }
   $sshd_banner = lookup('sshd_banner')
   file { '/etc/ssh/sshd_banner' :
     ensure  => file,

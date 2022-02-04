@@ -11,7 +11,7 @@ profile::base_linux::nsswitch: false
 network::interfaces_hash:
   eth0:
     type: Ethernet
-    ipaddress: 140.252.32.186
+    ipaddress: 140.252.32.187
     netmask: 255.255.254.0
     gateway: 140.252.32.1
     dns1: 140.252.32.125

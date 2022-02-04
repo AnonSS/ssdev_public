@@ -15,7 +15,7 @@ class profile::pwm {
   }
   # using archive directly to destination breaks tomcat installation
   # So it must first go to the tmp folder then compied over to destination.
-    archive { '/tmp/PwmConfiguration.xml' :
+  archive { '/tmp/PwmConfiguration.xml' :
     ensure  => present,
     source  => $pwmconfig_source,
     cleanup => false,
@@ -35,10 +35,25 @@ $applicationpath = lookup('application_path')
   file { '/opt/tomcat/webapps/pwm/WEB-INF/web.xml':
     ensure => present,
   }
-  -> file_line { 'Append a line to pwm/WEB-INF/web.xml':
+  -> file_line { 'Append line to pwm/WEB-INF/web.xml':
       path  => $webpath,
       line  => "<param-value>${applicationpath}</param-value>",
       match => '<param-value>unspecified</param-value>', # "^unspecified.*$" can be used for string
+    }
+    $lsst_theme = lookup('lsst_theme')
+    file {
+      '/opt/tomcat/webapps/pwm/public/resources/themes/lsst':
+        ensure => directory,
+    }
+    archive { '/tmp/lsst.zip' :
+      # path => '/tmp/lsst.zip',
+      # ensure  => present,
+      source  => $lsst_theme,
+      cleanup => false,
+      extract      => true,
+      extract_path => '/opt/tomcat/webapps/pwm/public/resources/themes',
+      # creates      => '/opt/tomcat/webapps/pwm/public/resources/themes/lsst',
+      # require      => File['/opt/tomcat/webapps/pwm/public/resources/themes/lsst'],
     }
   # # Manage certs
   # java_ks { 'pwm:truststore':

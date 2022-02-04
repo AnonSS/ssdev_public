@@ -27,7 +27,7 @@ ssh::server_options:
 ### Keep users created by puppet distinct ###
 #############################################
 accounts::user_list:
-  shahram_local:
+  shahram:
     groups:
       - 'wheel'
     sshkeys:
@@ -82,8 +82,8 @@ postfix::inet_protocols: "ipv4"
 postfix::manage_root_alias: true
 postfix::inet_interfaces: "localhost"
 postfix::mydestination: "$myhostname, localhost.$mydomain, localhost"
-postfix::relayhost: '140.252.32.25'
-postfix::root_mail_recipient: 'shahram@lsst.org'
+postfix::relayhost: 'atlantis.lsst.org'
+postfix::root_mail_recipient: 'shahram@belldex.com'
 postfix::configs:
   # virtual_alias_maps: 
   #   ensure: absent
@@ -91,3 +91,6 @@ postfix::configs:
   #   ensure: absent
   # mynetworks: 
   #   ensure: absent
+# puppet_agent::package_version: 6.25.1
+puppet_agent::config:
+  - {section: 'agent', setting: 'show_diff', value: 'true'}

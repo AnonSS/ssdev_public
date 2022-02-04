@@ -3,8 +3,9 @@
 classes:
   - profile::base_linux
   - profile::prometheus
-profile::prometheus::slackuser_hide: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAmUalgL8awzEEG5ULjzYiR6UBvcFOM2GrwQwO7EKegwQIYdTqbqn/N/JsbY9gZmU7HglJam9ccGJWO1P8e9eddW9Kw2y8EbQdWoWYLoWVjVvLnXY0MqaKLsQGUJZUaH2X93trCAO+Op20BJyvZxRO0slsl4jDlCpaVVjUqfUAvxiFVSYtDC50d16SbLFWZEovau4TTrMkrYVzHH7B2Wlijm81eyqrkiuJN7RXEoOx0RxfZhqkCnSfv39xEfrDOifDVDrOJi0HATPfgSVUHr3N8uXg48jcDsTSTm8BlONQ57dQvvRh+OGSXi+iDUr0rGwW2vv/AYYSEbBT8awRxfCwaTA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBD6YyQpi+oTolOxfe16RrDOgBBt/6fsMoalEgB5BiYynebI]
-profile::prometheus::slackapi_hide: ENC[PKCS7,MIIBygYJKoZIhvcNAQcDoIIBuzCCAbcCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAa7MTV3JaLgkCx60rvmtpdE/bh+N3JqDGmLN/H+rzfhyGiHcbqwJl/aGUC4e42g44sCzKdWH58Yvv7+CuQm1RacsPbScnng1OY2Iw5jpA1qVLFe1HGQehYzK83E3jwKq+PiBKjoJMP163JuhfEVo6SC1vlUwEOsQfrq04cDbSi3/y096uquPrRoh3OTZajdMzIBIyBiKlYJoNzYK9+Mto8CqblShqMRVvcwA+GOKiu6EGBpsKyN92wp02GAFC5oSBluPdKWiMw+TYF8zxgtpjtl6XeP/+lyJbLEiVJQJA1ad4DKP84qgPmYlIFms1ofPv6Tiky3iD+xOeH9rDfdK3nzCBjAYJKoZIhvcNAQcBMB0GCWCGSAFlAwQBKgQQv7aa9IIe6mwKWCadU13DB4BgSxQuni5lK77K8+nOV6syMttak6V4bpC+rS7H4sDEfiARQ7e9D1r4F8UjX6y0V6FKN0AH2fDR+s6O9AZvy+i1aD+vIxBMyjpZvXa1d8qKUf1KQWc5Y/hI7BAKs0OHKUuc]
+profile::prometheus::advertise_ip: 192.168.60.11:9093
+profile::prometheus::cluster_hide: ENC[PKCS7,MIIBiQYJKoZIhvcNAQcDoIIBejCCAXYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAX39snFIsJK+Jy+sxgytz7uvnTN1D33Z/vwZTb3MteKlr72RcvrL6WXTKAGrd6GtvIr3IG0lUh2cfWusYK28LmZUbpfGK/mLJXxCdsWQc/yHUnAxWbyhFWp1piN9CAKbhddLEMhNWWBeHar2xAbM4ny9Sl8DB7KbD5OZ2RnS5qVy0/akkLAyKgsaFGyx/bh0O7nIQdsZyHjOnZMHsYS+6wfBRbEEi7dtbQ0tqpqcpQA4D4cGYfs2ysPKM2Zs7WBnLOOW1tjvxxTl99ZyGTHIY3IzjWCq0z44hGtS5i0GAU+KDzk6dEHw9vJZPPklQwXdPOI3PZLlYt5ReggZHZfQoozBMBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBD2RYLzxxIwZJRx+FOqyv7/gCBps/DTjiUFs1ZRzKEkPpWpxYixKEqkPh5HYvq5NOY1VA==]
+profile::base_linux::postfix: true
 network::interfaces_hash:
   eth0:
     type: Ethernet
@@ -16,3 +17,12 @@ network::interfaces_hash:
     peerdns: yes
     bootproto: none
     onboot: yes
+network::interfaces_hash:
+  eth1:
+    ipaddress: '192.168.60.11'
+    netmask: '255.255.255.0'
+    dns1: "140.252.32.126"
+    dns2: "140.252.32.125"
+    peerdns: 'yes'
+    bootproto: 'none'
+    onboot: 'yes'

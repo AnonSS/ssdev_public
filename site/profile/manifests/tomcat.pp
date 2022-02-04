@@ -6,18 +6,21 @@ $catalina_home,
 $catalina_base,
 $version,
 $java_home,
+$https_enabled,
+$keystorepass_hide,
 $ciphers,
 ){
+
   tomcat::install { $catalina_home:
   source_url     => "https://dlcdn.apache.org/tomcat/${version}.tar.gz",
   }
   tomcat::instance { 'default':
-  catalina_home => $catalina_home,
-  catalina_base => $catalina_base,
+    catalina_home => $catalina_home,
+    catalina_base => $catalina_base,
   }
 # wait for tomcat service to start 
   # exec { 'wait for tomcat':
-  #   command     => '/usr/bin/wget --spider --tries 10 --retry-connrefused --no-check-certificate http://localhost:8080',
+  #   command     => '/usr/bin/wget --spider --tries 10 --retry-connrefused --no-check-certificate http://localhost:8080/CCSWebTrending/',
   #   refreshonly => true,
   #   subscribe   => Service['tomcat'],
   # }
@@ -25,12 +28,12 @@ $ciphers,
 
   # Removes entry in: /opt/tomcat/webapps/manager/META-INF/context.xml
   # For some reason it does not remove it, had to do it manually
-  tomcat::config::context::manager { 'org.apache.catalina.valves.RemoteAddrValve':
-  ensure        => 'absent',
-  catalina_base => $catalina_base,
-  }
+  # tomcat::config::context::manager { 'org.apache.catalina.valves.RemoteAddrValve':
+  # ensure        => 'absent',
+  # catalina_base => $catalina_base,
+  # }
   file { '/opt/tomcat/webapps/manager/META-INF/context.xml':
-    ensure => present,
+    ensure => file,
   }
   -> file_line{ 'remove org.apache.catalina.valves.RemoteAddrValve':
       match => 'org.apache.catalina.valves.RemoteAddrValve',
@@ -41,6 +44,26 @@ $ciphers,
     password      => $tomcat_pass_hide.unwrap,
     roles         => ['admin-gui, manager-gui, manager-script'],
     catalina_base => $catalina_base,
+  }
+  tomcat::config::server::connector { 'default-https':
+    catalina_base         => $catalina_base,
+    port                  => 8443,
+    protocol              =>'org.apache.coyote.http11.Http11NioProtocol', # $http_version,
+    purge_connectors      => true,
+    additional_attributes => {
+      'redirectPort'        => absent,
+      'SSLEnabled'          => $https_enabled,
+      'maxThreads'          => 150,
+      'scheme'              => https,
+      'secure'              => true, # bool2str($https_connector_secure),
+      'clientAuth'          => 'false',
+      'sslProtocol'         => 'TLS',
+      'sslEnabledProtocols' => 'TLSv1.2',
+      'ciphers'             => $ciphers,
+
+      'keystorePass'        => $keystorepass_hide.unwrap,
+      'keystoreFile'        => '/etc/pki/keystore',
+    },
   }
 # Getting tomcat::service to work was too painful
   $tomcat_service = @("EOT")
@@ -68,7 +91,7 @@ $ciphers,
     [Install]
     WantedBy=multi-user.target
     | EOT
-
+# 
   systemd::unit_file { 'tomcat.service':
     content => "${tomcat_service}",
   }
@@ -76,29 +99,5 @@ $ciphers,
   subscribe => Tomcat::Instance['default'],
   ensure    => 'running',
   enable    => true,
-  }
-
-  # setcap cap_net_bind_service+ep /usr/java/jdk-11.0.2+9/bin/java
-  # or  setcap cap_net_bind_service+ep /usr/java/jdk8u202-b08-jre/bin/java
-  # configure SSL and specify protocols and ciphers to use
-  tomcat::config::server::connector { "default-https":
-    catalina_base         => "${catalina_base}",
-    port                  => 8443,
-    protocol              =>'org.apache.coyote.http11.Http11NioProtocol', # $http_version,
-    purge_connectors      => true,
-    additional_attributes => {
-      'redirectPort'        => absent,
-      'SSLEnabled'          => true, # bool2str($https_enabled),
-      'maxThreads'          => 150,
-      'scheme'              => https,
-      'secure'              => true, #bool2str($https_connector_secure),
-      'clientAuth'          => 'false',
-      'sslProtocol'         => 'TLS',
-      'sslEnabledProtocols' => 'TLSv1.2',
-      'ciphers'             => $ciphers,
-
-      'keystorePass'        => 'changeit',
-      'keystoreFile'        => '/etc/pki/keystore',
-    },
   }
 }

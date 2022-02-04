@@ -7,4 +7,3 @@ class profile::puppet_master {
       ensure   => present,
       provider => 'puppetserver_gem',
     }
-  }
