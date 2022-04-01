@@ -4,15 +4,15 @@ include 'archive'
 include java_ks::config
   $pwmconfig_dest = lookup('pwmconfig_dest')
   $pwmconfig_source = lookup('pwmconfig_source')
-  archive { '/tmp/pwm-1.9.2.war':
+  archive { '/tmp/pwm-2.0.1.war':
     ensure   => present,
-    source   => 'https://github.com/pwm-project/pwm/releases/download/v1_9_2/pwm-1.9.2.war',
+    source   => 'https://github.com/pwm-project/pwm/releases/download/v2_0_1/pwm-2.0.1.war',
     provider => 'wget',
     cleanup  => false,
   }
   file { '/opt/tomcat/webapps/ROOT.war':
     ensure => present,
-    source => '/tmp/pwm-1.9.2.war',
+    source => '/tmp/pwm-2.0.1.war',
   }
   # using archive directly to destination breaks tomcat installation
   # So it must first go to the tmp folder then compied over to destination.
