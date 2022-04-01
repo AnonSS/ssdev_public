@@ -64,7 +64,7 @@ cron::job:
   'pwmbackup':
     command: "aws s3 cp %{lookup('pwmconfig_dest')} s3://pwm/%{facts.fqdn}-PwmConfiguration ;
               aws s3 cp /etc/pki/keystore s3://pwm/%{facts.fqdn}.keystore;
-              aws s3 cp /tmp/lsst2023.pfx s3://pwm/%{facts.fqdn}.lsst2023.pfx"
+              # aws s3 cp /tmp/lsst2023.pfx s3://pwm/%{facts.fqdn}.lsst2023.pfx"
     minute: 48
     hour: 21
     date: '*'
