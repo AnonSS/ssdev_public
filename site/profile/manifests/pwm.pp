@@ -17,11 +17,11 @@ include java_ks::config
   # using archive directly to destination breaks tomcat installation
   # So it must first go to the tmp folder then compied over to destination.
 
-  archive { '/tmp/PwmConfiguration.xml' :
-    ensure  => present,
-    source  => $pwmconfig_source,
-    cleanup => false,
-  }
+  # archive { '/tmp/PwmConfiguration.xml' :
+  #   ensure  => present,
+  #   source  => $pwmconfig_source,
+  #   cleanup => false,
+  # }
   $dc2cert = lookup('dc2cert')
   archive { '/tmp/DC2Cert.cer' :
     ensure  => present,
@@ -69,10 +69,10 @@ include java_ks::config
     password            => $keystorepwd,
     password_fail_reset => true,
   }
-  file { $pwmconfig_dest:
-    ensure => present,
-    source => '/tmp/PwmConfiguration.xml',
-  }
+  # file { $pwmconfig_dest:
+  #   ensure => present,
+  #   source => '/tmp/PwmConfiguration.xml',
+  # }
   $applicationpath = lookup('application_path')
   $webpath = lookup('web_path')
   file { '/opt/tomcat/webapps/ROOT/WEB-INF/web.xml':

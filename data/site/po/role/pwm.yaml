@@ -15,7 +15,7 @@ profile::tomcat::tomcat_user_hide: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQA
 profile::tomcat::tomcat_pass_hide: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAahm6wj1e5YP3dHx8iVBW6EzYEbU6xRvXgHRhYYJNFGKyRi7WAXJEJ6bY6nTs+4IDij0rE+JlcKspeQARGRA92muIEMUJTAVK5kPaG/kRdfOiTqpPrIcvNd0KI2H20m1glkcPa8eOBp3YDJVwMPCt6JPZS3yhjUFVWlyVsVesEJcUGA+XDsaD0li50qZVn1nAK+IlniWO/6ONXF7yJmN2ZzSHkctxbh2sX2kMZsUJEJqeZG9wyZNrY4DYwcDKGLfVYS7LrLttCqX6EcEz3ca7+VMzFzrBuy0e+BBtzXtJxYBfRI+d+WI0Kwou6Esi8C0DVExHtrDSkRA+o13LuegMgDA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBDoyRceFsrRNzqC7t6OCGoHgBBEG8w1MRaOAzN2pq7pNxl/]
 profile::tomcat::catalina_home: '/opt/tomcat'
 profile::tomcat::catalina_base: '/opt/tomcat'
-profile::tomcat::version: 'tomcat-9/v9.0.59/bin/apache-tomcat-9.0.59'
+profile::tomcat::version: 'tomcat-9/v9.0.62/bin/apache-tomcat-9.0.62'
 profile::tomcat::java_home: '/usr/java/jdk-11.0.2+9-jre' #'/usr/java/jdk-11.0.2+9'
 profile::tomcat::https_enabled: 'true'
 profile::tomcat::keystorepass_hide: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAKdHzOC1PtK/COrwKUnFgCnKX+KoYCJoGeZMy7tZI1ODAVSHWqEhtabp0424Wo0zOFNwTsd/2lv9UqkraBJupZURi2m2QdD1I6qa9MzbOmAPNdGVM68lkPAK3URabcJGKTr/4DO31t8nAZgXF+PJQA/Wz0IKvHz5AyHKgU8BQN+FDUJslmIwCUoIWc75ET5RzNffQussYRgFX2jxWLHdgY8YpKLo2M0M7uNZFCx1z37wHCO9dhh2bRrvtslqGBZ2KNyOIwYD5pm/M9V+s0s7u7d2/IsNmVAUBo6f92VQoOstYwwIGRUuUkJzztLZCwl7MljO9UbCD6COECvsywO2GIjA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBCmPVqEnQeGIQqvSe74VFGHgBBw0cHQfAVbdyo4liGkQFZK]
