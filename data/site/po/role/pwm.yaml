@@ -62,8 +62,8 @@ profile::tomcat::ciphers: |
   TLS_EMPTY_RENEGOTIATION_INFO_SCSVF
 cron::job:
   'pwmbackup':
-    command: "aws s3 cp %{lookup('pwmconfig_dest')} s3://pwm/%{facts.fqdn}-PwmConfiguration ;
-              aws s3 cp /etc/pki/keystore s3://pwm/%{facts.fqdn}.keystore;
+    command: "aws s3 cp %{lookup('pwmconfig_dest')} s3://pwm/%{facts.fqdn}-PwmConfiguration_bak ;
+              aws s3 cp /etc/pki/keystore s3://pwm/%{facts.fqdn}.keystore_bak;
               # aws s3 cp /tmp/lsst2023.pfx s3://pwm/%{facts.fqdn}.lsst2023.pfx"
     minute: 48
     hour: 21
