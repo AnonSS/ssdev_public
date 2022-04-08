@@ -1,7 +1,7 @@
 ---
 classes:
   - profile::base_linux
-  - profile::puppet_master2
+  # - profile::puppet_master2
 profile::base_linux::postfix: true
 network::interfaces_hash:
   eth0:
