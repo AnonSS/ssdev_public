@@ -1,10 +1,4 @@
 ---
-classes:
-  - profile::tomcat
-  - profile::base_linux
-  - profile::java
-  - profile::pwm
-profile::base_linux::postfix: true
 network::interfaces_hash:
   eth0:
     type: Ethernet

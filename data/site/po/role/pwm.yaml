@@ -1,4 +1,10 @@
 ---
+classes:
+  - profile::base_linux
+  - profile::java
+  - profile::tomcat
+  - profile::pwm
+profile::base_linux::postfix: true
 profile::base_linux::awscli: true
 # profile::base_linux::gralog: true
 profile::tomcat::tomcat_user_hide: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEALEE4wT6Aa1NF8hAdILW+CqPEkMAdWSnsrEqY3fAmCK2ksm0ZS5oGJuJwk/7ZkldZru5FB8EVq24M8RBGQwDN/CrzuQPSB6unuU7n2ugWupVDHEMn3vD9xO+qY0M1jSCviAw8xh9B0x4TVZq0QMAOTyc8gu+mUvb4TcsL3y8DCImVex5rrOJyMV7d+7dP+AUsGtA7i7paVo0yQlJEF3A03ajZ0N1zVBpBKp/qOsVbEavUojrOTabypc1WooaoqOfh7qXe1kudcflJB9v2S6uCLT1/HpXlHGkxhPQnab7Fb/70lN3GugEL7WN3XxJSenlufVWkBSbDT6ml4U1nx0vLSjA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBD1rO9fQMy9oYtTykzrYH5wgBDOPe2KSvUck6n8FHrrOzVK]
