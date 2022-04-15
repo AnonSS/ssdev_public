@@ -8,7 +8,7 @@ class profile::base_linux (
 ) {
   include network
   # include archive
-  include firewalld
+  include ::firewalld
   include ssh
   include accounts
   include cron
