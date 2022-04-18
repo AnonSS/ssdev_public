@@ -61,15 +61,15 @@ cron::job:
     command: "aws s3 cp %{lookup('pwmconfig_dest')} s3://pwm/%{facts.fqdn}-PwmConfiguration ;
               aws s3 cp /etc/pki/keystore s3://pwm/%{facts.fqdn}.keystore;
               aws s3 cp /tmp/lsst2023.pfx s3://pwm/%{facts.fqdn}.lsst2023.pfx"
-    minute: 48
-    hour: 21
+    minute: 30
+    hour: 14
     date: '*'
     month: '*'
     weekday: '*'
     user: root
     environment:
       - 'MAILTO=root'
-      - 'PATH="/usr/bin:/bin"'
+      - 'PATH="/usr/local/bin/:/usr/bin:/bin"'
     description: 'pwm backup'
 
 # java_ks::config::params:
